@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KingSMS - Mensagens Inteligentes para Motoristas</title>
+    <meta name="description" content="Sistema inteligente de mensagens SMS com comandos por voz para motoristas">
+    <link rel="stylesheet" href="../../css/king-colors.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--king-gradient-main);
+            color: var(--king-white); 
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 3px solid var(--king-gold);
+        }
+        
+        .header h1 {
+            color: var(--king-gold);
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: var(--king-gray-light);
+            font-size: 1.3em;
+            font-weight: 300;
+        }
+        
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 40px 20px;
+        }
+        
+        .app-hero {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 2px solid var(--king-gold);
+        }
+        
+        .app-icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+        }
+        
+        .app-title {
+            color: var(--king-gold);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .app-description {
+            font-size: 1.2em;
+            color: var(--king-gray-light);
+            margin-bottom: 30px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            color: white;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .feature-card {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--king-gold);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--king-gold);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            color: var(--king-gold);
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .feature-description {
+            color: var(--king-gray-light);
+            line-height: 1.6;
+        }
+        
+        .download-section {
+            text-align: center;
+            margin: 50px 0;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--king-gold), #B8860B);
+            color: var(--king-black);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+        
+        .download-btn.disabled {
+            background: var(--king-gray-dark);
+            color: var(--king-gray-light);
+            cursor: not-allowed;
+        }
+        
+        .commands-section {
+            margin: 50px 0;
+        }
+        
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .command-group {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--king-gold);
+        }
+        
+        .command-group h4 {
+            color: var(--king-gold);
+            margin-bottom: 15px;
+        }
+        
+        .command {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            color: var(--king-beige-jupiter);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .app-title { font-size: 2em; }
+            .features-grid { grid-template-columns: 1fr; }
+            .commands-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📱 KingSMS</h1>
+        <p class="subtitle">Mensagens Inteligentes para Motoristas</p>
+    </div>
+
+    <div class="container">
+        <div class="app-hero">
+            <div class="app-icon">📱</div>
+            <h2 class="app-title">KingSMS</h2>
+            <p class="app-description">
+                Sistema inteligente de mensagens SMS com comandos por voz, leitura automática, 
+                resposta inteligente e integração com KingRoad para máxima segurança na estrada.
+            </p>
+            <div class="status-badge">🚧 Em Desenvolvimento</div>
+        </div>
+
+        <h3 style="color: var(--king-gold); text-align: center; margin-bottom: 30px; font-size: 2em;">
+            🧠 Funcionalidades Principais
+        </h3>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎤</div>
+                <h4 class="feature-title">Leitura Inteligente de SMS</h4>
+                <p class="feature-description">
+                    Detecção automática de mensagens e leitura em voz alta. 
+                    Reconhece contatos salvos e personaliza a leitura.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h4 class="feature-title">Resposta por Voz com IA</h4>
+                <p class="feature-description">
+                    Dite sua resposta e a IA converte em texto. 
+                    Sistema de revisão antes do envio para máxima precisão.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📞</div>
+                <h4 class="feature-title">Envio por Comando de Voz</h4>
+                <p class="feature-description">
+                    Inicie conversas apenas com comandos de voz. 
+                    Verificação automática de contatos salvos.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h4 class="feature-title">Sincronização de Contatos</h4>
+                <p class="feature-description">
+                    Integração com KingRoad, KingLoc e agenda do telefone. 
+                    Grupos organizados por categoria.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h4 class="feature-title">Respostas Rápidas Inteligentes</h4>
+                <p class="feature-description">
+                    Sugestões automáticas baseadas no conteúdo da mensagem. 
+                    Confirmação por toque ou voz.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📂</div>
+                <h4 class="feature-title">Histórico Completo</h4>
+                <p class="feature-description">
+                    Todas as conversas salvas com texto original, 
+                    transcrição por voz e leitura por voz.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h4 class="feature-title">Conversão Bidirecional</h4>
+                <p class="feature-description">
+                    Texto para voz e voz para texto. 
+                    Flexibilidade total na comunicação.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛜</div>
+                <h4 class="feature-title">Modo Offline</h4>
+                <p class="feature-description">
+                    Fila de envio quando sem sinal. 
+                    Mensagens enviadas automaticamente quando conectar.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🚗</div>
+                <h4 class="feature-title">Modo Caminhoneiro</h4>
+                <p class="feature-description">
+                    Interface simplificada para direção. 
+                    Apenas comandos de voz e botões grandes.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h4 class="feature-title">Segurança Total</h4>
+                <p class="feature-description">
+                    Processamento local, sem envio para nuvem. 
+                    Privacidade e segurança máximas.
+                </p>
+            </div>
+        </div>
+
+        <h3 style="color: var(--king-gold); text-align: center; margin-bottom: 30px; font-size: 2em;">
+            🎤 Comandos de Voz
+        </h3>
+
+        <div class="commands-section">
+            <div class="commands-grid">
+                <div class="command-group">
+                    <h4>Comandos Básicos</h4>
+                    <div class="command">"KingSMS, ler mensagens"</div>
+                    <div class="command">"KingSMS, próxima mensagem"</div>
+                    <div class="command">"KingSMS, responder sim"</div>
+                    <div class="command">"KingSMS, responder não"</div>
+                    <div class="command">"KingSMS, mensagem para [contato]"</div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Integração KingRoad</h4>
+                    <div class="command">"KingRoad, ler mensagens"</div>
+                    <div class="command">"KingRoad, responder SMS"</div>
+                    <div class="command">"KingRoad, mensagens importantes"</div>
+                    <div class="command">"KingRoad, silenciar SMS"</div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Controle Avançado</h4>
+                    <div class="command">"Repetir mensagem"</div>
+                    <div class="command">"Corrigir resposta"</div>
+                    <div class="command">"Enviar mensagem"</div>
+                    <div class="command">"Cancelar envio"</div>
+                    <div class="command">"Abrir histórico"</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <h3 style="color: var(--king-gold); margin-bottom: 20px;">📱 Download</h3>
+            <p style="margin-bottom: 30px; color: var(--king-gray-light);">
+                O KingSMS estará disponível em breve para Android e iOS
+            </p>
+            
+            <a href="#" class="download-btn disabled">
+                📱 Download APK Android (Em Breve)
+            </a>
+            
+            <a href="#" class="download-btn disabled">
+                🍎 Download iOS (Em Breve)
+            </a>
+            
+            <div style="margin-top: 30px;">
+                <h4 style="color: var(--king-gold); margin-bottom: 15px;">Requisitos do Sistema</h4>
+                <p style="color: var(--king-gray-light);">
+                    <strong>Android:</strong> 7.0+ (API 24) • <strong>RAM:</strong> 2GB mínimo • 
+                    <strong>Espaço:</strong> 100MB • <strong>Permissões:</strong> SMS, Microfone, Contatos
+                </p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px; padding: 30px; background: rgba(0, 0, 0, 0.3); border-radius: 15px;">
+            <h3 style="color: var(--king-gold); margin-bottom: 15px;">🔗 Integração com Família King</h3>
+            <p style="color: var(--king-gray-light); margin-bottom: 20px;">
+                O KingSMS se integra perfeitamente com outros aplicativos da Família King
+            </p>
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <span style="background: rgba(255, 215, 0, 0.2); padding: 10px 15px; border-radius: 20px; color: var(--king-gold);">
+                    🚛 KingRoad
+                </span>
+                <span style="background: rgba(255, 215, 0, 0.2); padding: 10px 15px; border-radius: 20px; color: var(--king-gold);">
+                    📍 KingLoc
+                </span>
+                <span style="background: rgba(255, 215, 0, 0.2); padding: 10px 15px; border-radius: 20px; color: var(--king-gold);">
+                    💬 KingChat
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 30px; background: rgba(0, 0, 0, 0.8); margin-top: 50px;">
+        <p style="color: var(--king-gray-light);">
+            © 2025 KingGroup Technologies - Família King
+        </p>
+        <p style="color: var(--king-gold); margin-top: 10px;">
+            📱 Revolucionando a comunicação para motoristas
+        </p>
+    </div>
+</body>
+</html>
+
